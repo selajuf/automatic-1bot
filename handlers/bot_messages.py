@@ -1,5 +1,6 @@
 from aiogram import Router, F
 from aiogram.types import Message, FSInputFile, URLInputFile
+from data.db import Database
 
 from keyboards import reply, fabrics
 from data.subloader import get_json
@@ -9,7 +10,7 @@ image = URLInputFile(
     "https://www.python.org/static/community_logos/python-powered-h-140x182.png",
     filename="python-logo.png"
 )
-
+db = Database('databasedb.db')
 router = Router()
 
 
@@ -25,5 +26,7 @@ async def echo(message: Message):
         await message.answer_photo(image, 'или так')
     elif msg == "забрать подарки":
         await message.answer_document(document)
+    elif msg == "профиль":
+        await message.answer(f'Ваш профиль:\n\nрефка - https://t.me/fsdgsabot?start={message.from_user.id}\nВсего юзеров приглашено - {db.count_referrals(message.from_user.id)}')
     elif msg == "назад":
         await message.answer("Вы перешли в главное меню!", reply_markup=reply.main)

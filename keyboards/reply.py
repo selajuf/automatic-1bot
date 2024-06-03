@@ -10,7 +10,8 @@ main = ReplyKeyboardMarkup(
         [
             KeyboardButton(text="Актуальные мероприятия"),
             KeyboardButton(text="Предыдущие эфиры"),
-            KeyboardButton(text="Забрать подарки")
+            KeyboardButton(text="Забрать подарки"),
+            KeyboardButton(text="Профиль")
         ],
     ],
     resize_keyboard=True,

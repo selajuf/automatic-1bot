@@ -1,21 +1,16 @@
 import asyncio
-from aiogram import Bot, Dispatcher
-from aiogram.client.bot import DefaultBotProperties
-from aiogram.enums import ParseMode
+import logging
+from aiogram import Dispatcher
 
 from handlers import bot_messages, user_commands, questionaire
 from callbacks import pagination
+from bot_instance import bot
 
-from dotenv import load_dotenv, find_dotenv
-import os
-
-load_dotenv(find_dotenv())
-
-telegram_token = os.getenv("TELEGRAM_TOKEN")
-
+logging.basicConfig(level=logging.INFO,
+                    format=u'%(filename)s:%(lineno)d #%(levelname)-8s [%(asctime)s] - %(name)s - %(message)s',
+                    )
 
 async def main():
-    bot = Bot(token=telegram_token, default=DefaultBotProperties(parse_mode=ParseMode.HTML))
     dp = Dispatcher()
 
     dp.include_routers(
@@ -27,7 +22,6 @@ async def main():
 
     await bot.delete_webhook(drop_pending_updates=True)
     await dp.start_polling(bot)
-
 
 if __name__ == "__main__":
     print('запущен')
